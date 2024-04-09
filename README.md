@@ -1,30 +1,35 @@
-# React + TypeScript + Vite
+# Frontend MusicApp Project (React + TS)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+It's the frontend part of a full-stack project that I used to exercise.
+This ReactJS app is used to display songs that are retrieved using Java APIs I have created ("https://github.com/Antoniowski/MusicAppBackend").
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
+Every song is displayed using one of this:
 
 ```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
+const SongRow = (props: SongProp) => {
+
+    let [isPlaying, setIsPlaying] = useState(false);
+
+    const toggleButton = () =>{
+        isPlaying ? setIsPlaying(false) : setIsPlaying (true)
+    }
+
+    return(
+        <>
+            <div className="row-container">
+                <div className="img-cnt">
+                    <div className="imag"></div>
+                </div>
+                <div className="text-cnt">
+                    <div className="bold" id="song-name">{props.name}</div>
+                    <div id="album-name">{props.album}</div>
+                </div>
+                <div className="btn-cnt">
+                    <button onClick={toggleButton}>{isPlaying ? "⏸" : "⏵"}</button>
+                </div>
+            </div>
+        </>
+    )
 }
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
